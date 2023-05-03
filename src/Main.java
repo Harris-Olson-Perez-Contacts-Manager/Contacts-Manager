@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        AsciiBanners asciiBanners = new AsciiBanners();
         Contact c1 = new Contact();
         Scanner scanner = new Scanner(System.in);
         int choice = 0;
@@ -23,6 +24,7 @@ public class Main {
                     c1.deleteContact();
                     break;
                 case 5:
+                    asciiBanners.endBanner();
                     System.out.println("Exiting...");
                     break;
                 default:
