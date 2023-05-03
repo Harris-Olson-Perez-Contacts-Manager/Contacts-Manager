@@ -4,6 +4,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
+
+import static java.lang.Long.parseLong;
+
 public class Contact extends Contacts {
     private Scanner scanner = new Scanner(System.in);
     private String name;
@@ -68,7 +71,15 @@ public class Contact extends Contacts {
     public void allContacts() throws IOException {
         Contacts contacts = new Contacts();
         List<String> contactList = Files.readAllLines(contactDirectory);
-        System.out.println(contactList);
+        System.out.println("Name          |Number        ");
+        for (String x: contactList){
+            if(!x.isEmpty()){
+                String[] spl = x.split(" ");
+                String name = spl[0];
+                Long number = parseLong(spl[1]);
+                System.out.printf("%14s|%14s\n", name, number);
+            }
+        }
     }
 
     public void addContact() throws IOException {
