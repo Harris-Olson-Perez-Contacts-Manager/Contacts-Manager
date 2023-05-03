@@ -4,17 +4,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
-
-public class Contact extends Contacts{
+public class Contact extends Contacts {
     private Scanner scanner = new Scanner(System.in);
     private String name;
     private long number;
-
     private String directory = "data";
     private String filename = "contacts.txt";
     private Path contactDirectory = Paths.get(directory, filename);
 
-    public String input(){
+    public String input() {
         return scanner.nextLine();
     }
 
@@ -26,10 +24,25 @@ public class Contact extends Contacts{
         System.out.println("5. Exit");
     }
 
+    public void searchContact() throws IOException {
+        System.out.println("Enter the name of the contact to search for:");
+        String name = input();
+        List<String> contactList = Files.readAllLines(contactDirectory);
+        boolean found = false;
+        for (String contact : contactList) {
+            if (contact.startsWith(name + " ")) {
+                System.out.println(contact);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("Contact not found.");
+        }
+    }
+
     public void deleteContact() throws IOException {
         System.out.println("Enter the name of the contact to delete:");
         String name = input();
-
         List<String> contactList = Files.readAllLines(contactDirectory);
         boolean deleted = false;
         for (int i = 0; i < contactList.size(); i++) {
@@ -63,15 +76,10 @@ public class Contact extends Contacts{
         String name = input();
         System.out.println("Enter the number.");
         String number = input();
-
-        try(FileWriter fw = new FileWriter(contactDirectory.toFile(), true)){
+        try (FileWriter fw = new FileWriter(contactDirectory.toFile(), true)) {
             fw.write("\n" + name + " " + number);
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
     }
-
-
-
-
 }
