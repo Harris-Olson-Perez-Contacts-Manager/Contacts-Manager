@@ -26,6 +26,32 @@ public class Contact extends Contacts{
         System.out.println("5. Exit");
     }
 
+    public void deleteContact() throws IOException {
+        System.out.println("Enter the name of the contact to delete:");
+        String name = input();
+
+        List<String> contactList = Files.readAllLines(contactDirectory);
+        boolean deleted = false;
+        for (int i = 0; i < contactList.size(); i++) {
+            String contact = contactList.get(i);
+            if (contact.startsWith(name + " ")) {
+                contactList.remove(i);
+                deleted = true;
+                break;
+            }
+        }
+        if (deleted) {
+            try (FileWriter fw = new FileWriter(contactDirectory.toFile())) {
+                for (String contact : contactList) {
+                    fw.write(contact + "\n");
+                }
+            }
+            System.out.println("Contact deleted successfully.");
+        } else {
+            System.out.println("Contact not found.");
+        }
+    }
+
     public void allContacts() throws IOException {
         Contacts contacts = new Contacts();
         List<String> contactList = Files.readAllLines(contactDirectory);
@@ -34,15 +60,18 @@ public class Contact extends Contacts{
 
     public void addContact() throws IOException {
         System.out.println("Enter the name.");
+        String name = input();
         System.out.println("Enter the number.");
+        String number = input();
 
         try(FileWriter fw = new FileWriter(contactDirectory.toFile(), true)){
-            String name = input();
-            String number = input();
             fw.write("\n" + name + " " + number);
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
     }
+
+
+
 
 }
