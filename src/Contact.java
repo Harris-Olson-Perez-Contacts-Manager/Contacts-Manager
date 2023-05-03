@@ -14,12 +14,14 @@ public class Contact extends Contacts {
     private String directory = "data";
     private String filename = "contacts.txt";
     private Path contactDirectory = Paths.get(directory, filename);
+    AsciiBanners asciiBanners = new AsciiBanners();
 
     public String input() {
         return scanner.nextLine();
     }
 
     public void mainMenu() {
+        asciiBanners.hello();
         System.out.println("1. View Contacts.");
         System.out.println("2. Add a new contact.");
         System.out.println("3. Search a contact by name.");
@@ -28,6 +30,7 @@ public class Contact extends Contacts {
     }
 
     public void searchContact() throws IOException {
+        asciiBanners.searchContact();
         System.out.println("Enter the name of the contact to search for:");
         String name = input();
         List<String> contactList = Files.readAllLines(contactDirectory);
@@ -44,6 +47,7 @@ public class Contact extends Contacts {
     }
 
     public void deleteContact() throws IOException {
+        asciiBanners.contactDeletedBanner();
         System.out.println("Enter the name of the contact to delete:");
         String name = input();
         List<String> contactList = Files.readAllLines(contactDirectory);
@@ -69,11 +73,12 @@ public class Contact extends Contacts {
     }
 
     public void allContacts() throws IOException {
+        asciiBanners.contactListBanner();
         Contacts contacts = new Contacts();
         List<String> contactList = Files.readAllLines(contactDirectory);
         System.out.println("Name          |Number        ");
-        for (String x: contactList){
-            if(!x.isEmpty()){
+        for (String x : contactList) {
+            if (!x.isEmpty()) {
                 String[] spl = x.split(" ");
                 String name = spl[0];
                 Long number = parseLong(spl[1]);
@@ -83,6 +88,7 @@ public class Contact extends Contacts {
     }
 
     public void addContact() throws IOException {
+        asciiBanners.contactAddBanner();
         System.out.println("Enter the name.");
         String name = input();
         System.out.println("Enter the number.");
