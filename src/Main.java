@@ -5,11 +5,10 @@ public class Main {
     public static void main(String[] args) throws IOException {
         AsciiBanners asciiBanners = new AsciiBanners();
         Contact c1 = new Contact();
-        Scanner scanner = new Scanner(System.in);
         int choice = 0;
         do {
             c1.mainMenu();
-            choice = Integer.parseInt(scanner.nextLine());
+            choice = Integer.parseInt(c1.input());
             switch (choice) {
                 case 1:
                     c1.allContacts();
