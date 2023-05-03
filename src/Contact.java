@@ -11,6 +11,7 @@ public class Contact extends Contacts {
     private Scanner scanner = new Scanner(System.in);
     private String name;
     private long number;
+    private int counter = 0;
     private String directory = "data";
     private String filename = "contacts.txt";
     private Path contactDirectory = Paths.get(directory, filename);
@@ -21,12 +22,15 @@ public class Contact extends Contacts {
     }
 
     public void mainMenu() {
-        asciiBanners.hello();
+        if (counter == 0){
+            asciiBanners.hello();
+        }
         System.out.println("1. View Contacts.");
         System.out.println("2. Add a new contact.");
         System.out.println("3. Search a contact by name.");
         System.out.println("4. Delete an existing contact.");
         System.out.println("5. Exit");
+        counter++;
     }
 
     public void searchContact() throws IOException {
